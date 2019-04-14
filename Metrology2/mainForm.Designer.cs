@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,13 +66,14 @@
             this.toolStripStatusDate = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txt_Diameter = new System.Windows.Forms.Label();
-            this.txt_d = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txt_Encoder = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.txt_Diameter = new System.Windows.Forms.Label();
+            this.txt_d = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.lbl_N = new System.Windows.Forms.Label();
+            this.clock = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -463,38 +465,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройка параметров";
             // 
-            // txt_Diameter
-            // 
-            this.txt_Diameter.AutoSize = true;
-            this.txt_Diameter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txt_Diameter.Location = new System.Drawing.Point(276, 33);
-            this.txt_Diameter.Name = "txt_Diameter";
-            this.txt_Diameter.Size = new System.Drawing.Size(15, 15);
-            this.txt_Diameter.TabIndex = 21;
-            this.txt_Diameter.Text = "d";
-            // 
-            // txt_d
-            // 
-            this.txt_d.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txt_d.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txt_d.Location = new System.Drawing.Point(295, 30);
-            this.txt_d.Name = "txt_d";
-            this.txt_d.Size = new System.Drawing.Size(75, 21);
-            this.txt_d.TabIndex = 20;
-            this.txt_d.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txt_d.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtT1_KeyDown);
-            this.txt_d.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPk_KeyPress);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(376, 33);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(104, 15);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "диаметр вала, м";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -527,6 +497,38 @@
             this.label10.TabIndex = 25;
             this.label10.Text = "разрешение энкодера";
             // 
+            // txt_Diameter
+            // 
+            this.txt_Diameter.AutoSize = true;
+            this.txt_Diameter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txt_Diameter.Location = new System.Drawing.Point(276, 33);
+            this.txt_Diameter.Name = "txt_Diameter";
+            this.txt_Diameter.Size = new System.Drawing.Size(15, 15);
+            this.txt_Diameter.TabIndex = 21;
+            this.txt_Diameter.Text = "d";
+            // 
+            // txt_d
+            // 
+            this.txt_d.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.txt_d.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txt_d.Location = new System.Drawing.Point(295, 30);
+            this.txt_d.Name = "txt_d";
+            this.txt_d.Size = new System.Drawing.Size(75, 21);
+            this.txt_d.TabIndex = 20;
+            this.txt_d.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_d.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtT1_KeyDown);
+            this.txt_d.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPk_KeyPress);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(376, 33);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(104, 15);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "диаметр вала, м";
+            // 
             // lbl_N
             // 
             this.lbl_N.AutoSize = true;
@@ -536,6 +538,12 @@
             this.lbl_N.Size = new System.Drawing.Size(29, 15);
             this.lbl_N.TabIndex = 31;
             this.lbl_N.Text = "N =";
+            // 
+            // clock
+            // 
+            this.clock.Enabled = true;
+            this.clock.Interval = 500;
+            this.clock.Tick += new System.EventHandler(this.clock_Tick);
             // 
             // mainForm
             // 
@@ -625,6 +633,7 @@
         private System.Windows.Forms.TextBox txt_Encoder;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbl_N;
+        private System.Windows.Forms.Timer clock;
     }
 }
 

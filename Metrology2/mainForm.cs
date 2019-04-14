@@ -42,7 +42,7 @@ namespace Metrology2
         private void mainForm_Load(object sender, EventArgs e)
         {
             toolStripStatusDate.Text = DateTime.Now.ToLongDateString();
-            toolStripStatusTime.Text = DateTime.Now.ToString("hh:mm:ss");
+            toolStripStatusTime.Text = DateTime.Now.ToString("HH:mm:ss");
             lblError.Visible = false;
             InitValue();
         }
@@ -165,6 +165,11 @@ namespace Metrology2
         {
             kToolStripMenuItem.Checked = !kToolStripMenuItem.Checked;
             Calc();
+        }
+
+        private void clock_Tick(object sender, EventArgs e)
+        {
+            toolStripStatusTime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
     }
 }

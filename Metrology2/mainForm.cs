@@ -17,6 +17,8 @@ namespace Metrology2
 {
     public partial class mainForm : Form
     {
+        public const double PI = 3.14159;
+
         public mainForm()
         {
             InitializeComponent();
@@ -39,6 +41,8 @@ namespace Metrology2
 
         private void mainForm_Load(object sender, EventArgs e)
         {
+            toolStripStatusDate.Text = DateTime.Now.ToLongDateString();
+            toolStripStatusTime.Text = DateTime.Now.ToString("hh:mm:ss");
             lblError.Visible = false;
             InitValue();
         }
@@ -50,10 +54,11 @@ namespace Metrology2
 
         private void Calc()
         {
-            double Pk, L, Ti, Tm, Gp, Tp, Var_A, Var_B, D1, k, k_Qnpp, Tmin, Tmax;
-            int n, Qz, Qnpp;
+            double Pk, L, Ti, Tm, Gp, Tp, Var_A, Var_B, D1, k, k_Qnpp, Tmin, Tmax, N, d;
+            int n, Qz, Qnpp, Npr;
 
             ClearResult();
+            
 
             if (kToolStripMenuItem.Checked == true)
             {
@@ -66,12 +71,14 @@ namespace Metrology2
 
             try
             {
-                Pk = Convert.ToDouble(txtPk.Text);
+                Pk = Convert.ToDouble(txtPk.Text);              // Масса контрольного груза
                 L = Convert.ToDouble(txtL.Text);
                 n = Convert.ToInt16(txtn.Text);
                 Qz = Convert.ToInt16(txtQz.Text);
-                Ti = Convert.ToDouble(txtT1.Text);
+                Ti = Convert.ToDouble(txtT1.Text);              // Измеренное время
                 Qnpp = Convert.ToInt16(txtQnpp.Text);
+                Npr = Convert.ToInt16(txt_Encoder.Text);        // Частота энкодера
+                d = Convert.ToDouble(txt_d.Text);               // Диаметр барабана
 
                 Qz = Qz * 1000;
                 Qnpp = Qnpp * 1000;
@@ -94,6 +101,7 @@ namespace Metrology2
                 Tmin = (6 * 60 * Gp) / (100 * Qz / 1000 - k_Qnpp * Qnpp / 1000);
                 Tmax = (6 * 60 * Gp) / (k_Qnpp * Qnpp / 1000 + 100 * Qz / 1000);
 
+                N = ((L / Ti) * Npr) / (PI * d);
 
                 label1.Text = label1.Text + " " + Gp.ToString("0.###") + " кг";
                 label4.Text = label4.Text + " " + Tp.ToString("0.###") + " c";
@@ -103,6 +111,7 @@ namespace Metrology2
 
                 label6.Text = label6.Text + " " + k.ToString("0.###");
                 label3.Text = label3.Text + " " + D1.ToString("0.##") + " %";
+                lbl_N.Text = lbl_N.Text + " " + N.ToString("0") + " имп.";
 
                 
 
@@ -125,6 +134,7 @@ namespace Metrology2
             label1.Text = "Gp =";
             label4.Text = "Tp =";
             label6.Text = "k =";
+            lbl_N.Text = "N =";
             label5.Text = "Tmin =";
             label7.Text = "Tmax =";
 
@@ -136,6 +146,8 @@ namespace Metrology2
             txtPk.Text = "27,68";
             txtL.Text = "0,0";
             txtn.Text = "1";
+            txt_d.Text = "0,25";
+            txt_Encoder.Text = "1800";
             txtQz.Text = "160";
             txtT1.Text = "0,0";
             txtQnpp.Text = "160";
@@ -152,6 +164,7 @@ namespace Metrology2
         private void kToolStripMenuItem_Click(object sender, EventArgs e)
         {
             kToolStripMenuItem.Checked = !kToolStripMenuItem.Checked;
+            Calc();
         }
     }
 }

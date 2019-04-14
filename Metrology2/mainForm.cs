@@ -54,8 +54,8 @@ namespace Metrology2
 
         private void Calc()
         {
-            double Pk, L, Ti, Tm, Gp, Tp, Var_A, Var_B, D1, k, k_Qnpp, Tmin, Tmax, N, d;
-            int n, Qz, Qnpp, Npr;
+            double Pk, L, Ti, Tm, Gp, Tp, Var_A, Var_B, D1, k, k_Qnpp, Tmin, Tmax, N, d, Qz;
+            int n, Qnpp, Npr;
 
             ClearResult();
             
@@ -74,7 +74,7 @@ namespace Metrology2
                 Pk = Convert.ToDouble(txtPk.Text);              // Масса контрольного груза
                 L = Convert.ToDouble(txtL.Text);
                 n = Convert.ToInt16(txtn.Text);
-                Qz = Convert.ToInt16(txtQz.Text);
+                Qz = Convert.ToDouble(txtQz.Text);
                 Ti = Convert.ToDouble(txtT1.Text);              // Измеренное время
                 Qnpp = Convert.ToInt16(txtQnpp.Text);
                 Npr = Convert.ToInt16(txt_Encoder.Text);        // Частота энкодера
@@ -148,7 +148,7 @@ namespace Metrology2
             txtn.Text = "1";
             txt_d.Text = "0,25";
             txt_Encoder.Text = "1800";
-            txtQz.Text = "160";
+            txtQz.Text = "160,00";
             txtT1.Text = "0,0";
             txtQnpp.Text = "160";
         }

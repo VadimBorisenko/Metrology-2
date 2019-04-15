@@ -18,10 +18,18 @@ namespace Metrology2
     public partial class mainForm : Form
     {
         public const double PI = 3.14159;
+        List<DispenserModel> dispensers = new List<DispenserModel>();
 
         public mainForm()
         {
             InitializeComponent();
+            LoadDispensersList();
+        }
+
+        private void LoadDispensersList()
+        {
+            // TODO Получить данные из баззы
+
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,8 +62,8 @@ namespace Metrology2
 
         private void Calc()
         {
-            double Pk, L, Ti, Tm, Gp, Tp, Var_A, Var_B, D1, k, k_Qnpp, Tmin, Tmax, N, d, Qz;
-            int n, Qnpp, Npr;
+            double Pk, L, Ti, Tm, Gp, Tp, Var_A, Var_B, D1, k, k_Qnpp, Tmin, Tmax, N, d, Qnpp, Qz;
+            int n, Npr;
 
             ClearResult();
             
@@ -76,7 +84,7 @@ namespace Metrology2
                 n = Convert.ToInt16(txtn.Text);
                 Qz = Convert.ToDouble(txtQz.Text);
                 Ti = Convert.ToDouble(txtT1.Text);              // Измеренное время
-                Qnpp = Convert.ToInt16(txtQnpp.Text);
+                Qnpp = Convert.ToDouble(txtQnpp.Text);          // Максимальная производительность дозатора
                 Npr = Convert.ToInt16(txt_Encoder.Text);        // Частота энкодера
                 d = Convert.ToDouble(txt_d.Text);               // Диаметр барабана
 
@@ -124,7 +132,6 @@ namespace Metrology2
             {
                 MessageBox.Show("Проверьте введенные данные!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // MessageBox.Show(Pk.ToString("0.##"));
         }
 
         private void ClearResult()
@@ -150,9 +157,26 @@ namespace Metrology2
             txt_Encoder.Text = "1800";
             txtQz.Text = "160,00";
             txtT1.Text = "0,0";
-            txtQnpp.Text = "160";
-        }
+            txtQnpp.Text = "160,00";
 
+            lbl100.Text = ConvertQnpp(Convert.ToDouble(txtQnpp.Text))[0].ToString("0.##") + " т/ч";
+            lbl50.Text = ConvertQnpp(Convert.ToDouble(txtQnpp.Text))[1].ToString("0.##") + " т/ч";
+            lbl25.Text = ConvertQnpp(Convert.ToDouble(txtQnpp.Text))[2].ToString("0.##") + " т/ч";
+            lblX.Text = ConvertQnpp(Convert.ToDouble(txtQnpp.Text))[3].ToString("0.##") + " т/ч";
+        }
+        
+        private double[] ConvertQnpp(double Qnpp)
+        {
+            double[] Q = new double[4];
+
+            Q[0] = Qnpp * 1;
+            Q[1] = Qnpp * .5;
+            Q[2] = Qnpp * .25;
+            Q[3] = Qnpp * .1;
+
+            return Q;
+        }
+        
         private void txtT1_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
@@ -170,6 +194,14 @@ namespace Metrology2
         private void clock_Tick(object sender, EventArgs e)
         {
             toolStripStatusTime.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void DispensersSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DispensersForm frm_dispenser = new DispensersForm();
+            frm_dispenser.MaximizeBox = false;
+            frm_dispenser.MinimizeBox = false;
+            frm_dispenser.ShowDialog();
         }
     }
 }
